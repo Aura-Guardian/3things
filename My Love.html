@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for akshita ✦</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Crimson+Pro:ital@0;1&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0a08;
+    --paper: #13100d;
+    --warm: #e8c99a;
+    --rose: #d4847a;
+    --gold: #c9a86c;
+    --cream: #f0e8d8;
+    --muted: #6b5c4e;
+    --text: #d9cfc4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', serif;
+    font-size: 18px;
+    line-height: 1.8;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ---- NOISE OVERLAY ---- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ---- FLOATING PARTICLES ---- */
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-up linear infinite;
+  }
+
+  @keyframes float-up {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.4; }
+    90% { opacity: 0.2; }
+    100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
+  }
+
+  /* ---- SECTIONS ---- */
+  section {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    text-align: center;
+    gap: 20px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: fade-in 1.2s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(52px, 14vw, 100px);
+    color: var(--cream);
+    line-height: 1;
+    opacity: 0;
+    animation: rise-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--rose);
+  }
+
+  .hero-sub {
+    font-size: 19px;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 360px;
+    opacity: 0;
+    animation: fade-in 1s ease 1.4s forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fade-in 1s ease 2.2s forwards;
+  }
+
+  .scroll-hint .line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: line-grow 2s ease 2.5s infinite;
+  }
+
+  @keyframes line-grow {
+    0%, 100% { transform: scaleY(1); opacity: 0.5; }
+    50% { transform: scaleY(1.3); opacity: 1; }
+  }
+
+  /* ---- DIVIDER ---- */
+  .divider {
+    width: 100%;
+    max-width: 500px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--muted), transparent);
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .divider-ornament {
+    text-align: center;
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 0.5em;
+    position: relative;
+    z-index: 1;
+    padding: 20px 0;
+  }
+
+  /* ---- LETTER SECTION ---- */
+  .letter-wrap {
+    max-width: 560px;
+    width: 100%;
+  }
+
+  .letter-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  .letter-body {
+    font-size: 19px;
+    line-height: 2;
+    color: var(--text);
+  }
+
+  .letter-body p {
+    margin-bottom: 24px;
+  }
+
+  .letter-body .highlight {
+    color: var(--cream);
+    font-style: italic;
+  }
+
+  /* ---- REASONS ---- */
+  .reasons-section {
+    min-height: auto;
+    padding: 60px 24px;
+    gap: 48px;
+  }
+
+  .reasons-heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 6vw, 42px);
+    color: var(--cream);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .reasons-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 540px;
+  }
+
+  .reason-card {
+    background: var(--paper);
+    border: 1px solid rgba(201, 168, 108, 0.12);
+    border-radius: 4px;
+    padding: 28px 32px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s;
+  }
+
+  .reason-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reason-card:hover {
+    border-color: rgba(201, 168, 108, 0.35);
+  }
+
+  .reason-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    color: var(--gold);
+    opacity: 0.4;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .reason-text {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .reason-text strong {
+    display: block;
+    color: var(--cream);
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    margin-bottom: 4px;
+    font-weight: normal;
+    letter-spacing: 0.03em;
+  }
+
+  /* ---- ASK OUT ---- */
+  .askout-section {
+    text-align: center;
+    gap: 32px;
+    background: radial-gradient(ellipse at center, rgba(212, 132, 122, 0.04) 0%, transparent 70%);
+  }
+
+  .askout-prefix {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rose);
+  }
+
+  .askout-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 9vw, 72px);
+    color: var(--cream);
+    line-height: 1.1;
+    max-width: 600px;
+  }
+
+  .askout-headline em {
+    color: var(--rose);
+    font-style: italic;
+  }
+
+  .askout-body {
+    max-width: 460px;
+    font-size: 18px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .askout-btn-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .btn-yes {
+    background: var(--rose);
+    color: #fff;
+    border: none;
+    padding: 14px 40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  .btn-yes:hover {
+    background: #c4726a;
+    transform: scale(1.03);
+  }
+
+  .btn-no {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--muted);
+    padding: 14px 40px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  /* ---- GOOD LUCK ---- */
+  .goodluck-section {
+    text-align: center;
+    gap: 24px;
+    display: none;
+  }
+
+  .goodluck-section.show {
+    display: flex;
+  }
+
+  .goodluck-star {
+    font-size: 32px;
+    animation: spin-slow 8s linear infinite;
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .goodluck-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 8vw, 60px);
+    color: var(--cream);
+    line-height: 1.1;
+  }
+
+  .goodluck-headline em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .goodluck-body {
+    max-width: 440px;
+    font-size: 18px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .goodluck-sign {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 20px;
+    margin-top: 16px;
+  }
+
+  /* ---- RESPONSE SCREEN ---- */
+  .response-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    gap: 24px;
+  }
+
+  .response-screen.show {
+    display: flex;
+  }
+
+  .response-emoji {
+    font-size: 64px;
+    animation: bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes bounce-in {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+
+  .response-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(32px, 8vw, 60px);
+    color: var(--cream);
+    line-height: 1.1;
+  }
+
+  .response-headline em {
+    color: var(--rose);
+    font-style: italic;
+  }
+
+  .response-body {
+    max-width: 420px;
+    font-size: 18px;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .response-back {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    margin-top: 24px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* ---- KEYFRAMES ---- */
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---- REVEAL ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div class="particles" id="particles"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">there's something i wish to tell</p>
+  <h1 class="hero-title">Hi, <em>Akshita.</em></h1>
+  <p class="hero-sub">i made this for you and i will be honest, i did use ai to help me for it but i hope you like it.</p>
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<div class="divider reveal"></div>
+<p class="divider-ornament reveal">✦ &nbsp; ✦ &nbsp; ✦</p>
+
+<!-- LETTER -->
+<section>
+  <div class="letter-wrap">
+    <p class="letter-label reveal">so here's what i wanted to say</p>
+    <div class="letter-body reveal">
+      <p>
+        Alot has happened recently and I have contributed far too much to your pain. I know grand gestures won't appease the pain your body and mind has been through.
+      </p>
+      <p>
+        I'm not nearly as good at alot of things that greatly matter to you. I can be rather awful even when I'm trying.
+        <span class="highlight">But right now, what I want to say is that I'm glad you're in my life.</span> 
+      </p>
+      <p>
+        I know that apologies and sweet words feel like a like. That's fair and I understand why. You're someone I care about yet I have failed you. A lot. I truly wish to be the better man you deserve and all of what you see in reels and what not. Because you deserve the best. For a moment, I wanted to keep everything aside and wish you all the best. Because you deserve to walk into tomorrow's exam knowing that I'm rooting for you. I understand if it doesn't feel like much. But I will always root for you. 
+      </p>
+      <p>
+        Often times you ask me why I love you, sometimes randomly and sometimes in critical moments. So I wanted to remind you why tonight
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section class="reasons-section">
+  <h2 class="reasons-heading reveal">Remind you about 3 things,<br><em>specifically</em></h2>
+  <div class="reasons-grid">
+
+    <div class="reason-card">
+      <span class="reason-num">i</span>
+      <div class="reason-text">
+        <strong>The way you're funny without trying</strong>
+        You have this rather amusing sense of humor that catches me off guard every time. You could say its an age gap thing but its genuinely one of my favourite things about you. Even on days when things seem cold and uncertain, you can make me smile. I just hope that one day, you feel that I do the same for you.
+      </div>
+    </div>
+
+    <div class="reason-card">
+      <span class="reason-num">ii</span>
+      <div class="reason-text">
+        <strong>You're more capable than you think</strong>
+        And I admire that because I have seen you put in the work. Even when you thought you didn't do great, you did far better than what you expected. Honestly, I know that you may not feel satisfied but I just wish you would believe in yourself more often.
+      </div>
+    </div>
+
+    <div class="reason-card">
+      <span class="reason-num">iv</span>
+      <div class="reason-text">
+        <strong>You're worth trying for</strong>
+        Including right now, despite the timing and how you feel about. I'd rather do this imperfectly than not at all. I'd rather keep trying harder and make sure that each step is more calculated and better than before. I don't mean that I will keep hurting you in my trials, no. I will show up better. Even on days when you may not like me.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ASK OUT -->
+<section class="askout-section" id="askout">
+  <p class="askout-prefix reveal">So, with that being said.</p>
+  <h2 class="askout-headline reveal">Will you be <em>mine,</em> again?</h2>
+  <p class="askout-body reveal">
+    I have no speech or grand gestures to impress you with, because I don't want you to feel like I'm trying to win you. I want to do this right with you. That's all
+  </p>
+  <div class="askout-btn-row reveal">
+    <button class="btn-yes" onclick="handleYes()">yes ✦</button>
+    <button class="btn-no" id="noBtn" onclick="moveNoBtn()">ask me later</button>
+  </div>
+</section>
+
+<div class="divider reveal"></div>
+<p class="divider-ornament reveal">✦</p>
+
+<!-- GOOD LUCK -->
+<section class="goodluck-section" id="goodluck">
+  <div class="goodluck-star">✦</div>
+  <h2 class="goodluck-headline">Go ace it,<br><em>My Ciel.</em></h2>
+  <p class="goodluck-body">
+    You've got this exam. Sleep well tonight, get well soon and eat something good in the morning. Walk in knowing you're prepared. All the best, my love.
+  </p>
+  <p class="goodluck-sign">~ always rooting for you</p>
+</section>
+
+<!-- RESPONSE: YES -->
+<div class="response-screen" id="yesScreen">
+  <div class="response-emoji">🌹</div>
+  <h2 class="response-headline">If you have reached here,</h2>
+  <p class="response-body">
+    That's everything I need to know. Now go get some rest 
+    you have an exam to ace tomorrow. 
+    We'll celebrate after, however we can. ✦
+  </p>
+  <button class="response-back" onclick="document.getElementById('yesScreen').classList.remove('show')">← back</button>
+</div>
+
+<script>
+  // Particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
+    container.appendChild(p);
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .reason-card').forEach(el => observer.observe(el));
+
+  // Show good luck after letter section loads
+  setTimeout(() => {
+    document.getElementById('goodluck').classList.add('show');
+  }, 800);
+
+  // Buttons
+  function handleYes() {
+    document.getElementById('yesScreen').classList.add('show');
+  }
+
+  let noCount = 0;
+  function moveNoBtn() {
+    noCount++;
+    const btn = document.getElementById('noBtn');
+    if (noCount >= 3) {
+      btn.textContent = 'Pwease 🥺';
+      btn.onclick = handleYes;
+      return;
+    }
+    const labels = ['nope, not yet', 'you sure?'];
+    btn.textContent = labels[noCount - 1] || 'Pwease 🥺';
+    const x = (Math.random() - 0.5) * 300;
+    const y = (Math.random() - 0.5) * 200;
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+  }
+</script>
+</body>
+</html>
